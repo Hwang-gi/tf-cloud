@@ -128,7 +128,7 @@ resource "aws_iam_role_policy_attachment" "eks_policy_attachment" {
 
 resource "aws_iam_role_policy_attachment" "CA_Policy" {
   policy_arn = aws_iam_policy.Autoscaler_Policy.arn
-  role       = aws_iam_role.autoscaler_role.name
+  role       = aws_iam_role.cluster_autoscaler_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "EFS_CSI_Driver_Policy" {
