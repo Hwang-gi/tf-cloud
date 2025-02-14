@@ -60,6 +60,7 @@ resource "aws_iam_role" "cluster_autoscaler_role" {
           "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}:sub": "system:serviceaccount:kube-system:cluster-autoscaler-sa"
         }
       }
+    }
   ]
 }
 POLICY
@@ -107,6 +108,7 @@ resource "aws_iam_role" "aws_load_balancer_controller_role" {
           "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_id}:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller-sa"
         }
       }
+    }
   ]
 }
 POLICY
