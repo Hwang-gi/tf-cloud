@@ -49,6 +49,16 @@ resource "helm_release" "cluster_autoscaler_chart" {
   repository = var.cluster_autoscaler_chart.repository
   chart = var.cluster_autoscaler_chart.chart
   version = var.cluster_autoscaler_chart.version
+
+  set {
+    name  = "autoDiscovery.clusterName"
+    value = "${data.aws_eks_cluster.default.name}"
+  }
+
+  set {
+    name  = "awsRegion"
+    value = "${var.region}"
+  }
 }
 
 resource "helm_release" "efs_csi_driver_chart" {
@@ -57,4 +67,15 @@ resource "helm_release" "efs_csi_driver_chart" {
   repository = var.efs_csi_driver_chart.repository
   chart = var.efs_csi_driver_chart.chart
   version = var.efs_csi_driver_chart.version
+
+  values = [
+    {
+      controller = {
+        persistence = {
+          storageClass = "standard"
+        }
+        replicaCount = 2
+      }
+    }
+  ]
 }
