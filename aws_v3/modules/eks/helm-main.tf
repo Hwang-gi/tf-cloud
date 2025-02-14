@@ -20,12 +20,6 @@ resource "helm_release" "metrics_server_chart" {
   repository = var.metrics_server_chart.repository
   chart      = var.metrics_server_chart.chart
   version    = var.metrics_server_chart.version
-
-  values = [
-    <<-EOT
-    enableServiceMutatorWebhook: true
-    EOT
-  ]
 }
 
 resource "helm_release" "alb_chart" {
@@ -67,15 +61,4 @@ resource "helm_release" "efs_csi_driver_chart" {
   repository = var.efs_csi_driver_chart.repository
   chart = var.efs_csi_driver_chart.chart
   version = var.efs_csi_driver_chart.version
-
-  values = [
-    {
-      controller = {
-        persistence = {
-          storageClass = "standard"
-        }
-        replicaCount = 2
-      }
-    }
-  ]
 }
